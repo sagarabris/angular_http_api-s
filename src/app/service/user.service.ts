@@ -6,15 +6,20 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../interface/user';
 
 import { Observable } from 'rxjs';
+// importing the enviroment
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
+  
+  // using apiUrl is the variable using this because instead of using the url many times we can use variable
+  private apiUrl=environment.apiUrl;
+
   // injecting it here in the constructor
   constructor(private http: HttpClient) { }
-// try
 // ________________
 // private is the scope of variable for this class
 // type is of :HttpClient (mandatory)
@@ -26,11 +31,15 @@ export class UserService {
 
 //getting the multiple users
 getUsers():Observable<User[]>{
-  return this.http.get<User[]>('https://jsonplaceholder.typicode.com/users')
+  return this.http.get<User[]>(`${this.apiUrl}/users`)
 }
- 
+// using this.apiUrl which is coming from env file 
+// `${this.apiUrl} is the syntax used
+
+
 // getting the single user
 getUser(): Observable<User>{
-  return this.http.get<User>('https://jsonplaceholder.typicode.com/users/2')
+  return this.http.get<User>(`${this.apiUrl}/users/1`)
 }
+//  used /1 to get the single user
 }
